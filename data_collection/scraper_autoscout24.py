@@ -1,25 +1,35 @@
 """
-AutoScout24 (Europe) used car scraper.
-AutoScout24 embeds all listing data as JSON inside a <script id="__NEXT_DATA__"> tag,
-making it easy to parse without a headless browser.
+AutoScout24 (Europe) scraper — updated for confirmed 2024 JSON structure.
 
-Covers: Germany, France, Italy, Spain, Netherlands, Belgium, Austria, Switzerland.
+Data path:  props.pageProps.listings[]
+  listing['vehicle']['make']           → brand
+  listing['vehicle']['model']          → model
+  listing['vehicle']['transmission']   → Automatic/Manual
+  listing['vehicle']['fuel']           → d/b/e/h  (diesel/petrol/electric/hybrid)
+  listing['vehicle']['mileageInKm']    → "278,000 km"
+  listing['tracking']['firstRegistration'] → "02-2014"
+  listing['tracking']['price']         → "3600"
 """
 import json
 import re
 import pandas as pd
 from .base_scraper import BaseCarScraper
 
-# AutoScout24 country codes -> (display name, currency)
 AS24_COUNTRIES = {
-    'D':  ('Germany',     'EUR'),
-    'F':  ('France',      'EUR'),
-    'I':  ('Italy',       'EUR'),
-    'E':  ('Spain',       'EUR'),
-    'NL': ('Netherlands', 'EUR'),
-    'B':  ('Belgium',     'EUR'),
-    'A':  ('Austria',     'EUR'),
-    'CH': ('Switzerland', 'EUR'),
+    'D':  'Germany',
+    'F':  'France',
+    'I':  'Italy',
+    'E':  'Spain',
+    'NL': 'Netherlands',
+    'B':  'Belgium',
+    'A':  'Austria',
+    'CH': 'Switzerland',
+}
+
+FUEL_CODES = {
+    'd': 'Diesel', 'b': 'Petrol', 'e': 'Electric',
+    'h': 'Hybrid', 'l': 'LPG',   'c': 'CNG',
+    'lpg': 'LPG',  'cng': 'CNG',
 }
 
 BASE_URL = 'https://www.autoscout24.com/lst'
@@ -31,102 +41,88 @@ class AutoScout24Scraper(BaseCarScraper):
         super().__init__(country='Europe', currency='EUR', mileage_unit='km')
         self.country_codes = country_codes or list(AS24_COUNTRIES.keys())
 
-    def _build_url(self, country_code: str, page: int) -> str:
+    def _url(self, code: str, page: int) -> str:
         return (
-            f'{BASE_URL}?sort=standard&desc=0'
-            f'&ustate=N%2CU'          # new and used
-            f'&size=20'
-            f'&page={page}'
-            f'&cy={country_code}'
-            f'&atype=C'               # cars only
+            f'{BASE_URL}?sort=standard&desc=0&ustate=N%2CU'
+            f'&size=20&page={page}&cy={code}&atype=C'
         )
 
-    def _extract_next_data(self, html: str) -> dict:
-        """Extract the __NEXT_DATA__ JSON blob from the HTML."""
-        match = re.search(
-            r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
-            html, re.DOTALL
-        )
-        if not match:
-            return {}
+    def _parse_listing(self, lst: dict, country_name: str) -> dict | None:
         try:
-            return json.loads(match.group(1))
-        except json.JSONDecodeError:
-            return {}
+            v = lst.get('vehicle', {})
+            t = lst.get('tracking', {})
 
-    def _parse_listing(self, listing: dict, country_name: str) -> dict | None:
-        try:
-            tracking = listing.get('tracking', {})
-            attrs    = listing.get('attributes', [])
-            attr_map = {a.get('id'): a.get('value') for a in attrs if a.get('id')}
+            make  = v.get('make', '')
+            model = v.get('model', '')
+            name  = f"{make} {model}".strip()
+            if not name:
+                return None
 
-            make  = tracking.get('make', '') or listing.get('make', {}).get('name', '')
-            model = tracking.get('model', '') or listing.get('modelName', '')
-            name  = f"{make} {model}".strip() or listing.get('title', '')
+            # Year from tracking.firstRegistration e.g. "02-2014"
+            reg   = t.get('firstRegistration', '')
+            year_m = re.search(r'(19[89]\d|20[012]\d)', reg)
+            year   = int(year_m.group()) if year_m else None
+            if not year:
+                return None
 
-            year_raw  = tracking.get('firstRegistration', '') or attr_map.get('registrationDate', '')
-            year_match = re.search(r'(19[89]\d|20[012]\d)', str(year_raw))
-            year = int(year_match.group()) if year_match else None
+            # Mileage: prefer tracking (plain number), fallback to vehicle string
+            km_raw  = t.get('mileage') or re.sub(r'[^\d]', '', v.get('mileageInKm', ''))
+            kms     = int(km_raw) if km_raw else None
 
-            mileage = (
-                listing.get('mileage')
-                or attr_map.get('mileage')
-                or tracking.get('mileage')
-            )
-            mileage = int(re.sub(r'[^\d]', '', str(mileage))) if mileage else None
+            # Price from tracking (no formatting)
+            price_raw = t.get('price')
+            price_eur  = float(price_raw) if price_raw else None
+            if not price_eur:
+                return None
+            price_usd = self.to_usd(price_eur)
 
-            price_info = listing.get('prices', {}).get('public', {})
-            price_eur  = price_info.get('priceRaw') or price_info.get('price')
-            if price_eur is None:
-                price_eur = listing.get('price')
-            price_usd = self.to_usd(float(price_eur)) if price_eur else None
+            # Fuel
+            fuel_code = v.get('fuel', 'b').lower()
+            fuel = FUEL_CODES.get(fuel_code, fuel_code.capitalize() or 'Petrol')
 
-            fuel  = attr_map.get('fuel', tracking.get('fuel', 'Petrol'))
-            trans = attr_map.get('transmissionType', tracking.get('transmission', 'Unknown'))
+            # Transmission
+            trans = v.get('transmission', 'Unknown') or 'Unknown'
 
-            if not (name and year and price_usd and 1990 <= year <= 2026):
+            if not (1990 <= year <= 2026) or price_usd < 300:
                 return None
 
             return {
                 'name':         name,
-                'company':      make or name.split()[0],
+                'company':      make,
                 'year':         year,
-                'kms_driven':   mileage,
+                'kms_driven':   kms,
                 'fuel_type':    fuel,
                 'transmission': trans,
-                'Price_USD':    price_usd,
+                'Price_USD':    round(price_usd, 2),
                 'country':      country_name,
                 'source':       'autoscout24',
             }
         except Exception:
             return None
 
-    def _scrape_country(self, code: str, country_name: str, pages: int) -> pd.DataFrame:
+    def _scrape_country(self, code: str, country_name: str, pages: int) -> list:
         rows = []
         for page in range(1, pages + 1):
-            url  = self._build_url(code, page)
-            resp = self.get(url)
+            resp = self.get(self._url(code, page))
             if resp is None:
                 continue
 
-            data = self._extract_next_data(resp.text)
-            listings = (
-                data.get('props', {})
-                    .get('pageProps', {})
-                    .get('listings', [])
+            m = re.search(
+                r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
+                resp.text, re.DOTALL
             )
+            if not m:
+                print(f"  [{country_name}] page {page}: no __NEXT_DATA__")
+                break
 
-            if not listings:
-                # Try alternative path in the JSON tree
-                listings = (
-                    data.get('props', {})
-                        .get('pageProps', {})
-                        .get('searchResponse', {})
-                        .get('listings', [])
-                )
+            try:
+                data = json.loads(m.group(1))
+            except json.JSONDecodeError:
+                break
 
+            listings = data.get('props', {}).get('pageProps', {}).get('listings', [])
             if not listings:
-                print(f"  [info] {country_name} page {page}: no listings in JSON — structure may have changed")
+                print(f"  [{country_name}] page {page}: empty listings")
                 break
 
             for lst in listings:
@@ -134,18 +130,17 @@ class AutoScout24Scraper(BaseCarScraper):
                 if parsed:
                     rows.append(parsed)
 
-            print(f"  {country_name} page {page}/{pages}: {len(rows)} rows so far")
+            print(f"  [{country_name}] page {page}/{pages}: {len(rows)} rows")
 
-        return pd.DataFrame(rows, columns=self.standard_columns()) if rows else self.empty_df()
+        return rows
 
     def scrape(self, pages: int = 5) -> pd.DataFrame:
-        all_dfs = []
+        all_rows = []
         for code in self.country_codes:
-            country_name, _ = AS24_COUNTRIES[code]
-            print(f"Scraping AutoScout24: {country_name}")
-            df = self._scrape_country(code, country_name, pages)
-            all_dfs.append(df)
+            country_name = AS24_COUNTRIES[code]
+            print(f"AutoScout24: {country_name}")
+            all_rows.extend(self._scrape_country(code, country_name, pages))
 
-        combined = pd.concat(all_dfs, ignore_index=True) if all_dfs else self.empty_df()
-        print(f"AutoScout24 total: {len(combined)} records")
-        return combined
+        df = pd.DataFrame(all_rows, columns=self.standard_columns()) if all_rows else self.empty_df()
+        print(f"AutoScout24 total: {len(df)} records")
+        return df

@@ -4,6 +4,12 @@ import pandas as pd
 import numpy as np
 import os
 
+# ── Auto-train if model.pkl is missing (e.g. fresh Streamlit Cloud deploy) ────
+if not os.path.exists('model.pkl'):
+    with st.spinner('First run: training model from dataset...'):
+        import train_model
+        train_model.run()
+
 st.set_page_config(
     page_title="Global Car Price Predictor",
     page_icon="🚗",

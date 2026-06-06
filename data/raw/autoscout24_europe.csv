@@ -1,0 +1,292 @@
+name,company,year,kms_driven,fuel_type,transmission,Price_USD,country,source
+Mazda 3,Mazda,2014,278000,Diesel,Automatic,3888.0,Germany,autoscout24
+Renault Captur,Renault,2020,77963,Gasoline,Manual,16189.2,Germany,autoscout24
+Nissan X-Trail,Nissan,2026,10,Electric/gasoline,Automatic,33361.2,Germany,autoscout24
+Skoda Octavia,Skoda,2022,131914,Diesel,Automatic,24364.8,Germany,autoscout24
+Mercedes-Benz B 200,Mercedes-Benz,2021,125000,Diesel,Automatic,18306.0,Germany,autoscout24
+Mazda CX-6e,Mazda,2026,0,Electric,Automatic,44679.6,Germany,autoscout24
+Mercedes-Benz E 300,Mercedes-Benz,2021,88582,Electric/diesel,Automatic,34344.0,Germany,autoscout24
+Mitsubishi Eclipse Cross,Mitsubishi,2022,70463,Electric/gasoline,Automatic,19407.6,Germany,autoscout24
+Volkswagen T-Roc,Volkswagen,2025,56975,Gasoline,Manual,20406.6,Germany,autoscout24
+Renault Scenic,Renault,2016,183070,Diesel,Manual,8905.68,Germany,autoscout24
+Volkswagen Tiguan,Volkswagen,2023,37568,Gasoline,Manual,26557.2,Germany,autoscout24
+Kia Picanto,Kia,2024,7500,Gasoline,Manual,16189.2,Germany,autoscout24
+Fiat 500,Fiat,2022,26403,Gasoline,Manual,12841.2,Germany,autoscout24
+Skoda Karoq,Skoda,2026,20,Gasoline,Automatic,37157.4,Germany,autoscout24
+Opel Crossland,Opel,2024,23247,Gasoline,Manual,16178.4,Germany,autoscout24
+Ford EcoSport,Ford,2023,31183,Gasoline,Manual,18781.2,Germany,autoscout24
+Audi A4 allroad,Audi,2023,58358,Diesel,Automatic,41429.88,Germany,autoscout24
+Mercedes-Benz E 300,Mercedes-Benz,2021,124119,Electric/diesel,Automatic,39852.0,Germany,autoscout24
+BMW 530,BMW,2010,378368,Diesel,Automatic,5270.4,Germany,autoscout24
+Renault Scenic,Renault,2016,183070,Diesel,Manual,8905.68,Germany,autoscout24
+Volkswagen T-Roc,Volkswagen,2025,56975,Gasoline,Manual,20406.6,Germany,autoscout24
+Ford Ranger,Ford,2024,44407,Diesel,Automatic,45623.52,Germany,autoscout24
+BMW X3 M,BMW,2023,59212,Diesel,Automatic,60955.2,Germany,autoscout24
+Volvo XC40,Volvo,2023,7300,Electric,Automatic,38394.0,Germany,autoscout24
+Volkswagen Polo,Volkswagen,2012,65000,Gasoline,Automatic,10789.2,Germany,autoscout24
+Mazda CX-60,Mazda,2022,32200,Electric/gasoline,Automatic,38718.0,Germany,autoscout24
+Omoda 5,Omoda,2026,10,Gasoline,Automatic,24289.2,Germany,autoscout24
+Mitsubishi Eclipse Cross,Mitsubishi,2022,70463,Electric/gasoline,Automatic,19407.6,Germany,autoscout24
+Volkswagen Tiguan,Volkswagen,2023,37568,Gasoline,Manual,26557.2,Germany,autoscout24
+BMW 220,BMW,2018,67702,Gasoline,Automatic,19434.6,Germany,autoscout24
+Porsche Cayenne,Porsche,2021,45000,Gasoline,Automatic,167281.2,Germany,autoscout24
+Hyundai i30,Hyundai,2022,37369,Gasoline,Manual,19429.2,Germany,autoscout24
+BMW 330,BMW,2025,23634,Gasoline,Automatic,40813.2,Germany,autoscout24
+MG ZS,MG,2026,12,Electric/gasoline,Automatic,24721.2,Germany,autoscout24
+Mercedes-Benz V 220,Mercedes-Benz,2022,74729,Diesel,Automatic,47498.4,Germany,autoscout24
+Porsche Macan,Porsche,2024,35900,Gasoline,Automatic,74358.0,Germany,autoscout24
+Volkswagen Golf,Volkswagen,2004,227000,Diesel,Manual,2127.6,Germany,autoscout24
+Hyundai TUCSON,Hyundai,2025,6580,Electric/gasoline,Automatic,38653.2,Germany,autoscout24
+Dacia Duster,Dacia,2024,79987,LPG,Manual,18349.2,Germany,autoscout24
+Skoda Kamiq,Skoda,2025,20553,Gasoline,Manual,20412.0,Germany,autoscout24
+Mazda CX-60,Mazda,2022,32200,Electric/gasoline,Automatic,38718.0,Germany,autoscout24
+Volkswagen Tiguan,Volkswagen,2023,55850,Diesel,Automatic,33350.4,Germany,autoscout24
+Audi A1,Audi,2019,45000,Gasoline,Manual,18349.2,Germany,autoscout24
+Opel Insignia,Opel,2021,144703,Diesel,Automatic,14580.0,Germany,autoscout24
+Porsche Cayenne,Porsche,2021,45000,Gasoline,Automatic,167281.2,Germany,autoscout24
+Fiat Topolino,Fiat,2026,50,Electric,Automatic,10789.2,Germany,autoscout24
+BMW X4,BMW,2022,77000,Diesel,Automatic,39949.2,Germany,autoscout24
+Hyundai i30,Hyundai,2022,37369,Gasoline,Manual,19429.2,Germany,autoscout24
+BMW 330,BMW,2025,23634,Gasoline,Automatic,40813.2,Germany,autoscout24
+Hyundai BAYON,Hyundai,2021,46400,Gasoline,Manual,15001.2,Germany,autoscout24
+MG ZS,MG,2026,12,Electric/gasoline,Automatic,24721.2,Germany,autoscout24
+Dacia Duster,Dacia,2016,63400,Gasoline,Manual,11318.4,Germany,autoscout24
+Mercedes-Benz GLB 200,Mercedes-Benz,2021,59985,Gasoline,Automatic,30769.2,Germany,autoscout24
+Kia Sportage,Kia,2025,16333,Gasoline,Automatic,31212.0,Germany,autoscout24
+Renault Austral,Renault,2024,28218,Electric/gasoline,Automatic,32398.92,France,autoscout24
+Opel Mokka,Opel,2022,39834,Gasoline,Manual,17278.92,France,autoscout24
+Skoda Scala,Skoda,2025,11335,Gasoline,Automatic,21589.2,France,autoscout24
+Others can-am,Others,1997,500,Gasoline,Manual,42120.0,France,autoscout24
+Porsche 911,Porsche,2016,42400,Gasoline,Automatic,129589.2,France,autoscout24
+Renault Clio,Renault,2025,13,Gasoline,Manual,20712.24,France,autoscout24
+Dodge RAM,Dodge,2021,10200,Gasoline,Automatic,56031.48,France,autoscout24
+DS Automobiles DS 7 Crossback,DS Automobiles,2018,107800,Diesel,Automatic,18349.2,France,autoscout24
+Kia Sportage,Kia,2018,122000,Diesel,Manual,12742.92,France,autoscout24
+Renault Koleos,Renault,2020,94974,Diesel,Automatic,20302.92,France,autoscout24
+Opel Mokka,Opel,2023,32587,Gasoline,Automatic,19429.2,France,autoscout24
+Opel Astra,Opel,2013,135000,Diesel,Manual,6998.4,France,autoscout24
+Opel Corsa,Opel,2025,18632,Gasoline,Automatic,16738.92,France,autoscout24
+Honda HR-V,Honda,2026,10,Electric/gasoline,Automatic,38966.4,France,autoscout24
+Opel Insignia,Opel,2021,69555,Diesel,Automatic,17269.2,France,autoscout24
+Kia Sportage,Kia,2023,45500,Others,Automatic,26458.92,France,autoscout24
+Peugeot 408,Peugeot,2023,10694,Gasoline,Automatic,26458.92,France,autoscout24
+Volkswagen T-Roc,Volkswagen,2021,28325,Gasoline,Manual,21490.92,France,autoscout24
+Dacia Sandero,Dacia,2025,12439,Gasoline,Manual,17818.92,France,autoscout24
+Peugeot 3008,Peugeot,2017,40325,Gasoline,Manual,14990.4,France,autoscout24
+Kia Stonic,Kia,2024,27569,Gasoline,Manual,16837.2,France,autoscout24
+Volkswagen Polo,Volkswagen,2020,97000,Gasoline,Automatic,19105.2,France,autoscout24
+Peugeot 2008,Peugeot,2022,104198,Gasoline,Manual,12418.92,France,autoscout24
+Audi A6,Audi,2010,140000,Diesel,Manual,10249.2,France,autoscout24
+Renault Clio,Renault,2025,13,Gasoline,Manual,20712.24,France,autoscout24
+Opel Crossland X,Opel,2020,74757,Gasoline,Automatic,13282.92,France,autoscout24
+Dacia Bigster,Dacia,2025,21300,Electric/gasoline,Automatic,32346.0,France,autoscout24
+Dacia Sandero,Dacia,2021,35705,Gasoline,Manual,10789.2,France,autoscout24
+Kia Sportage,Kia,2026,10,Others,Automatic,37560.24,France,autoscout24
+Kia ProCeed / pro_cee'd,Kia,2019,110000,Gasoline,Automatic,16189.2,France,autoscout24
+Honda e,Honda,2023,46000,Electric,Automatic,18252.0,France,autoscout24
+Audi Q3,Audi,2022,76842,Electric/gasoline,Automatic,33469.2,France,autoscout24
+Volvo XC40,Volvo,2023,88137,Electric,Automatic,27538.92,France,autoscout24
+Mercedes-Benz GLC 43 AMG,Mercedes-Benz,2020,71800,Gasoline,Automatic,51300.0,France,autoscout24
+Kia Ceed / cee'd,Kia,2016,136000,Diesel,Automatic,11869.2,France,autoscout24
+Opel Corsa-e,Opel,2022,23647,Gasoline,Manual,11878.92,France,autoscout24
+Jeep Renegade,Jeep,2023,53190,Electric/gasoline,Automatic,21049.2,France,autoscout24
+Audi Q5,Audi,2022,64121,Electric/gasoline,Automatic,37670.4,France,autoscout24
+Audi Q5,Audi,2022,117510,Electric/gasoline,Automatic,38750.4,France,autoscout24
+Audi TT,Audi,2010,160000,Gasoline,Manual,12409.2,France,autoscout24
+Porsche 911,Porsche,2017,46990,Gasoline,Automatic,144709.2,France,autoscout24
+Audi Q2,Audi,2022,139800,Diesel,Automatic,20509.2,France,autoscout24
+Peugeot 807,Peugeot,2011,132260,Diesel,Manual,10798.92,France,autoscout24
+Peugeot 2008,Peugeot,2021,109000,Gasoline,Manual,14580.0,France,autoscout24
+McLaren 650S Spider,McLaren,2015,48300,Gasoline,Automatic,172692.0,France,autoscout24
+Nissan Juke,Nissan,2017,156800,Diesel,Manual,8629.2,France,autoscout24
+Opel Crossland,Opel,2021,50407,Gasoline,Manual,12958.92,France,autoscout24
+HUMMER H2,HUMMER,2006,72311,Gasoline,Automatic,41029.2,France,autoscout24
+Nissan NV200,Nissan,2012,167300,Diesel,Manual,9718.92,France,autoscout24
+Peugeot 3008,Peugeot,2026,500,Electric,Automatic,38880.0,France,autoscout24
+Audi A6,Audi,2016,178000,Diesel,Automatic,19429.2,France,autoscout24
+Aston Martin DB12,Aston Martin,2026,500,Gasoline,Automatic,285660.0,France,autoscout24
+Skoda Octavia,Skoda,2021,79584,Electric/gasoline,Automatic,19429.2,France,autoscout24
+Toyota Aygo X,Toyota,2025,8000,Gasoline,Manual,19006.92,France,autoscout24
+Jeep Renegade,Jeep,2020,86478,Diesel,Manual,15649.2,France,autoscout24
+Kia Ceed SW / cee'd SW,Kia,2017,147057,Gasoline,Manual,8629.2,France,autoscout24
+Audi A6,Audi,2016,72067,Diesel,Automatic,19753.2,France,autoscout24
+DS Automobiles DS 7 Crossback,DS Automobiles,2018,74000,Diesel,Manual,18358.92,France,autoscout24
+Renault Espace,Renault,2014,183500,Diesel,Manual,10798.92,France,autoscout24
+Dacia Sandero,Dacia,2023,36306,Gasoline,Manual,13822.92,France,autoscout24
+Mercedes-Benz E 350,Mercedes-Benz,2012,189000,Diesel,Automatic,4860.0,Italy,autoscout24
+Peugeot 308,Peugeot,2023,28960,Gasoline,Automatic,22140.0,Italy,autoscout24
+Renault Clio,Renault,2018,77163,LPG,Manual,13932.0,Italy,autoscout24
+Peugeot 3008,Peugeot,2023,55042,Diesel,Automatic,29052.0,Italy,autoscout24
+Porsche Macan,Porsche,2022,130200,Gasoline,Automatic,57240.0,Italy,autoscout24
+Alfa Romeo Junior,Alfa Romeo,2024,1,Electric/gasoline,Automatic,32292.0,Italy,autoscout24
+Volkswagen T-Roc,Volkswagen,2022,30000,LPG,Manual,20509.2,Italy,autoscout24
+Hyundai KONA,Hyundai,2022,49000,Electric/gasoline,Automatic,19429.2,Italy,autoscout24
+Fiat 500L,Fiat,2015,105000,LPG,Manual,12852.0,Italy,autoscout24
+SEAT Ibiza,SEAT,2023,19200,Gasoline,Manual,15649.2,Italy,autoscout24
+Toyota C-HR,Toyota,2026,1,Electric/gasoline,Automatic,34020.0,Italy,autoscout24
+Alfa Romeo Stelvio,Alfa Romeo,2021,136585,Diesel,Automatic,29052.0,Italy,autoscout24
+Jeep Avenger,Jeep,2025,1,Electric/gasoline,Automatic,26892.0,Italy,autoscout24
+Audi Q5,Audi,2023,39900,Electric/gasoline,Automatic,53892.0,Italy,autoscout24
+BMW X1,BMW,2021,79563,Electric/gasoline,Automatic,21546.0,Italy,autoscout24
+DS Automobiles DS 3 Crossback,DS Automobiles,2025,9250,Electric/gasoline,Automatic,24829.2,Italy,autoscout24
+Kia Sportage,Kia,2023,66000,Electric/diesel,Automatic,25812.0,Italy,autoscout24
+BMW X4,BMW,2018,140000,Diesel,Automatic,29158.92,Italy,autoscout24
+Peugeot 2008,Peugeot,2013,124000,Diesel,Manual,4212.0,Italy,autoscout24
+Fiat Qubo,Fiat,2018,59433,Diesel,Manual,13489.2,Italy,autoscout24
+Volkswagen T-Roc,Volkswagen,2022,30000,LPG,Manual,20509.2,Italy,autoscout24
+Alfa Romeo Junior,Alfa Romeo,2024,1,Electric/gasoline,Automatic,32292.0,Italy,autoscout24
+Porsche Macan,Porsche,2022,130200,Gasoline,Automatic,57240.0,Italy,autoscout24
+Kia Sportage,Kia,2023,66000,Electric/diesel,Automatic,25812.0,Italy,autoscout24
+Jeep Avenger,Jeep,2025,1,Electric/gasoline,Automatic,26892.0,Italy,autoscout24
+SEAT Ibiza,SEAT,2023,19200,Gasoline,Manual,15649.2,Italy,autoscout24
+Audi Q5,Audi,2023,39900,Electric/gasoline,Automatic,53892.0,Italy,autoscout24
+BMW X1,BMW,2021,79563,Electric/gasoline,Automatic,21546.0,Italy,autoscout24
+Hyundai KONA,Hyundai,2022,49000,Electric/gasoline,Automatic,19429.2,Italy,autoscout24
+BMW X4,BMW,2018,140000,Diesel,Automatic,29158.92,Italy,autoscout24
+Audi SQ8,Audi,2020,170550,Electric/diesel,Automatic,59292.0,Italy,autoscout24
+Nissan X-Trail,Nissan,2018,147000,Diesel,Automatic,17820.0,Italy,autoscout24
+Fiat Grande Panda,Fiat,2026,10,Electric/gasoline,Automatic,21492.0,Italy,autoscout24
+Alfa Romeo Tonale,Alfa Romeo,2024,31432,Electric/gasoline,Automatic,30132.0,Italy,autoscout24
+DS Automobiles DS 3,DS Automobiles,2022,9671,Electric,Automatic,21546.0,Italy,autoscout24
+Porsche Macan,Porsche,2019,155000,Gasoline,Automatic,37692.0,Italy,autoscout24
+Mercedes-Benz B 180,Mercedes-Benz,2019,78454,Diesel,Automatic,21438.0,Italy,autoscout24
+BMW X3,BMW,2021,44600,Electric/diesel,Automatic,31212.0,Italy,autoscout24
+Fiat Tipo,Fiat,2016,317779,Diesel,Manual,3769.2,Italy,autoscout24
+Audi A1,Audi,2018,131332,Diesel,Automatic,15118.92,Italy,autoscout24
+Mercedes-Benz GLC 43 AMG,Mercedes-Benz,2022,36000,Gasoline,Automatic,64692.0,Italy,autoscout24
+Mercedes-Benz GLC 220,Mercedes-Benz,2025,100,Electric/diesel,Automatic,71820.0,Italy,autoscout24
+EVO EVO6,EVO,2026,1,Gasoline,Automatic,26892.0,Italy,autoscout24
+Audi Q7,Audi,2025,10500,Electric/gasoline,Automatic,127332.0,Italy,autoscout24
+Volkswagen up!,Volkswagen,2024,44244,Gasoline,Manual,14526.0,Italy,autoscout24
+Volkswagen T-Cross,Volkswagen,2020,147532,Diesel,Manual,15552.0,Italy,autoscout24
+Volkswagen T6 Multivan,Volkswagen,2015,86029,Diesel,Automatic,34549.2,Italy,autoscout24
+DS Automobiles DS 4,DS Automobiles,2025,5,Diesel,Automatic,31860.0,Italy,autoscout24
+Nissan Micra,Nissan,2022,2,Gasoline,Manual,17712.0,Italy,autoscout24
+MG EHS,MG,2024,55000,Gasoline,Automatic,17928.0,Italy,autoscout24
+Jeep Avenger,Jeep,2024,47800,Gasoline,Manual,19332.0,Italy,autoscout24
+Peugeot 3008,Peugeot,2023,62730,Diesel,Manual,21492.0,Italy,autoscout24
+Nissan Qashqai,Nissan,2022,33160,Electric/gasoline,Automatic,20981.16,Italy,autoscout24
+Volkswagen Tiguan,Volkswagen,2024,53000,Diesel,Automatic,33372.0,Italy,autoscout24
+Volkswagen Tiguan,Volkswagen,2025,24828,Diesel,Automatic,32283.36,Italy,autoscout24
+Nissan Qashqai,Nissan,2026,10,Electric/gasoline,Manual,28026.0,Italy,autoscout24
+Opel Antara,Opel,2011,147000,Diesel,Automatic,6372.0,Italy,autoscout24
+Mazda CX-30,Mazda,2023,23135,Gasoline,Manual,20112.84,Spain,autoscout24
+Mazda CX-5,Mazda,2017,107355,Diesel,Automatic,17809.2,Spain,autoscout24
+MINI Cooper,MINI,2021,25271,Gasoline,Automatic,22669.2,Spain,autoscout24
+Citroen C4,Citroen,2015,146500,Diesel,Manual,10260.0,Spain,autoscout24
+Peugeot 3008,Peugeot,2018,122614,Gasoline,Manual,11869.2,Spain,autoscout24
+Peugeot 208,Peugeot,2021,35000,Gasoline,Manual,15109.2,Spain,autoscout24
+Peugeot 208,Peugeot,2024,50508,Gasoline,Manual,11869.2,Spain,autoscout24
+Jeep Renegade,Jeep,2018,67161,Gasoline,Manual,13716.0,Spain,autoscout24
+Citroen C4,Citroen,2016,71025,Gasoline,Manual,8124.84,Spain,autoscout24
+Citroen C3,Citroen,2022,36454,Gasoline,Manual,10011.6,Spain,autoscout24
+Citroen C3 Aircross,Citroen,2020,82139,Gasoline,Manual,10249.2,Spain,autoscout24
+Citroen C4 Cactus,Citroen,2017,105055,Gasoline,Manual,8197.2,Spain,autoscout24
+Peugeot 208,Peugeot,2024,32807,Gasoline,Manual,11977.2,Spain,autoscout24
+Citroen C3 Aircross,Citroen,2023,19000,Gasoline,Automatic,15109.2,Spain,autoscout24
+Nissan Micra,Nissan,2019,53572,Gasoline,Manual,11724.48,Spain,autoscout24
+Citroen C3 Aircross,Citroen,2025,20887,Gasoline,Manual,16189.2,Spain,autoscout24
+Opel Mokka,Opel,2022,74166,Gasoline,Automatic,14893.2,Spain,autoscout24
+Jeep Avenger,Jeep,2023,59917,Gasoline,Manual,15411.6,Spain,autoscout24
+MINI One Countryman,MINI,2019,88624,Diesel,Manual,15433.2,Spain,autoscout24
+Peugeot 3008,Peugeot,2024,32737,Gasoline,Automatic,25585.2,Spain,autoscout24
+Jeep Avenger,Jeep,2023,71347,Gasoline,Manual,16189.2,Spain,autoscout24
+Peugeot 3008,Peugeot,2019,124097,Diesel,Manual,13597.2,Spain,autoscout24
+Hyundai i10,Hyundai,2022,9553,Gasoline,Manual,12085.2,Spain,autoscout24
+Mazda CX-3,Mazda,2022,33600,Gasoline,Manual,18889.2,Spain,autoscout24
+Citroen C3 Aircross,Citroen,2025,20887,Gasoline,Manual,16189.2,Spain,autoscout24
+Mazda CX-5,Mazda,2020,50894,Gasoline,Automatic,22421.88,Spain,autoscout24
+Peugeot 308,Peugeot,2020,161845,Gasoline,Manual,7873.2,Spain,autoscout24
+Ford Fiesta,Ford,2017,122933,Gasoline,Manual,8521.2,Spain,autoscout24
+Peugeot 5008,Peugeot,2019,85890,Diesel,Manual,18349.2,Spain,autoscout24
+Mercedes-Benz GLA 220,Mercedes-Benz,2021,152119,Diesel,Automatic,29052.0,Spain,autoscout24
+Ford EcoSport,Ford,2019,40028,Gasoline,Manual,18792.0,Spain,autoscout24
+Dacia Bigster,Dacia,2025,6900,Electric/gasoline,Manual,27961.2,Spain,autoscout24
+Omoda 5,Omoda,2025,21185,Gasoline,Automatic,21384.0,Spain,autoscout24
+SEAT Arona,SEAT,2021,92309,Gasoline,Manual,16524.0,Spain,autoscout24
+Peugeot 2008,Peugeot,2021,39990,Gasoline,Manual,14569.2,Spain,autoscout24
+Toyota C-HR,Toyota,2018,81799,Electric/gasoline,Automatic,17269.2,Spain,autoscout24
+Ford Focus,Ford,2021,40069,Gasoline,Manual,14798.16,Spain,autoscout24
+Peugeot 3008,Peugeot,2017,123371,Gasoline,Manual,11307.6,Spain,autoscout24
+SEAT Arona,SEAT,2022,77984,Gasoline,Automatic,16729.2,Spain,autoscout24
+Peugeot 208,Peugeot,2019,43415,Gasoline,Manual,9061.2,Spain,autoscout24
+Peugeot 3008,Peugeot,2019,124097,Diesel,Manual,13597.2,Spain,autoscout24
+MINI One Countryman,MINI,2019,88624,Diesel,Manual,15433.2,Spain,autoscout24
+Renault Clio,Renault,2024,17100,Gasoline,Manual,16740.0,Spain,autoscout24
+Fiat 500X,Fiat,2016,58518,Gasoline,Manual,9709.2,Spain,autoscout24
+Fiat 500,Fiat,2022,26784,Electric/gasoline,Manual,10789.2,Spain,autoscout24
+Mercedes-Benz A 220,Mercedes-Benz,2016,200000,Diesel,Automatic,18889.2,Spain,autoscout24
+Volkswagen T-Cross,Volkswagen,2023,61907,Gasoline,Automatic,20077.2,Spain,autoscout24
+Dacia Sandero,Dacia,2015,67000,Diesel,Manual,10260.0,Spain,autoscout24
+MG MG3,MG,2025,17690,Gasoline,Manual,14569.2,Spain,autoscout24
+Kia Sorento,Kia,2025,12456,Electric/gasoline,Automatic,52697.52,Spain,autoscout24
+Peugeot 208,Peugeot,2023,70000,Gasoline,Manual,11610.0,Spain,autoscout24
+Jeep Compass,Jeep,2018,107818,Gasoline,Manual,11869.2,Spain,autoscout24
+Audi Q2,Audi,2017,135000,Diesel,Automatic,17269.2,Spain,autoscout24
+Peugeot 3008,Peugeot,2018,80396,Gasoline,Manual,11684.52,Spain,autoscout24
+BMW 440,BMW,2021,96000,Gasoline,Automatic,43092.0,Spain,autoscout24
+Mercedes-Benz A 250,Mercedes-Benz,2020,99317,Electric/gasoline,Automatic,26460.0,Spain,autoscout24
+Hyundai i10,Hyundai,2026,5,Gasoline,Manual,17820.0,Spain,autoscout24
+Peugeot 308,Peugeot,2023,99700,Diesel,Automatic,15109.2,Spain,autoscout24
+Volkswagen Passat,Volkswagen,2018,114549,Diesel,Manual,14353.2,Spain,autoscout24
+Mazda 6,Mazda,2017,95250,Diesel,Manual,17776.8,Spain,autoscout24
+Opel Corsa,Opel,2021,105915,Gasoline,Manual,14850.0,Netherlands,autoscout24
+Hyundai TUCSON,Hyundai,2022,96437,Electric/gasoline,Automatic,32346.0,Netherlands,autoscout24
+Opel Astra,Opel,2022,104821,Electric/gasoline,Automatic,23754.6,Netherlands,autoscout24
+SEAT Tarraco,SEAT,2023,83602,Electric/gasoline,Automatic,32346.0,Netherlands,autoscout24
+Tesla Model S,Tesla,2018,177286,Electric,Automatic,21053.52,Netherlands,autoscout24
+BMW 225,BMW,2016,178135,Electric/gasoline,Automatic,12366.0,Netherlands,autoscout24
+Toyota Aygo,Toyota,2011,169098,Gasoline,Manual,4966.92,Netherlands,autoscout24
+Opel Corsa,Opel,2017,200111,Gasoline,Manual,6426.0,Netherlands,autoscout24
+Kia EV6,Kia,2023,24300,Electric,Automatic,43146.0,Netherlands,autoscout24
+Renault R 5,Renault,2026,25,Electric,Automatic,39619.8,Netherlands,autoscout24
+Dacia Duster,Dacia,2014,107982,Gasoline,Manual,7558.92,Netherlands,autoscout24
+Peugeot 2008,Peugeot,2013,115614,Gasoline,Manual,5832.0,Netherlands,autoscout24
+Mazda CX-5,Mazda,2018,98902,Gasoline,Automatic,24786.0,Netherlands,autoscout24
+Peugeot 5008,Peugeot,2017,66831,Gasoline,Manual,16198.92,Netherlands,autoscout24
+Audi Q5,Audi,2018,127091,Gasoline,Automatic,28780.92,Netherlands,autoscout24
+Lynk & Co 01,Lynk & Co,2024,17770,Electric/gasoline,Automatic,31320.0,Netherlands,autoscout24
+Lynk & Co 01,Lynk & Co,2023,64238,Electric/gasoline,Automatic,25104.6,Netherlands,autoscout24
+Volkswagen Golf,Volkswagen,2020,181780,Gasoline,Automatic,19434.6,Netherlands,autoscout24
+SEAT Ateca,SEAT,2021,100593,Gasoline,Automatic,30132.0,Netherlands,autoscout24
+Mercedes-Benz E 200,Mercedes-Benz,2013,214955,Gasoline,Automatic,12906.0,Netherlands,autoscout24
+Opel Astra,Opel,2022,104821,Electric/gasoline,Automatic,23754.6,Netherlands,autoscout24
+SEAT Tarraco,SEAT,2023,83602,Electric/gasoline,Automatic,32346.0,Netherlands,autoscout24
+Audi A3,Audi,2016,93496,Gasoline,Manual,18198.0,Netherlands,autoscout24
+BYD Seal U,BYD,2026,10,Electric/gasoline,Automatic,40737.6,Netherlands,autoscout24
+MINI One,MINI,2019,57825,Gasoline,Manual,15930.0,Netherlands,autoscout24
+BYD Seal U,BYD,2026,43,Electric/gasoline,Automatic,37686.6,Netherlands,autoscout24
+Dacia Bigster,Dacia,2025,5361,Electric/gasoline,Automatic,36612.0,Netherlands,autoscout24
+Renault Austral,Renault,2023,31695,Electric/gasoline,Manual,28026.0,Netherlands,autoscout24
+BMW 745,BMW,2020,135741,Electric/gasoline,Automatic,45306.0,Netherlands,autoscout24
+Kia ProCeed / pro_cee'd,Kia,2022,76415,Gasoline,Automatic,27479.52,Netherlands,autoscout24
+Mercedes-Benz C 450,Mercedes-Benz,2015,87000,Gasoline,Automatic,32389.2,Netherlands,autoscout24
+Volkswagen T7 Multivan,Volkswagen,2022,98556,Electric/gasoline,Automatic,50652.0,Netherlands,autoscout24
+Ford S-Max,Ford,2012,152340,Diesel,Automatic,8586.0,Netherlands,autoscout24
+Fiat 500,Fiat,2022,34319,Electric,Automatic,19386.0,Netherlands,autoscout24
+CUPRA Formentor,CUPRA,2023,97980,Electric/gasoline,Automatic,32346.0,Netherlands,autoscout24
+Toyota Yaris,Toyota,2014,204896,Electric/gasoline,Automatic,9450.0,Netherlands,autoscout24
+Audi Q7,Audi,2020,139964,Electric/gasoline,Automatic,57234.6,Netherlands,autoscout24
+BMW X1,BMW,2015,87115,Gasoline,Automatic,17118.0,Netherlands,autoscout24
+Citroen C3,Citroen,2012,128290,Gasoline,Manual,6426.0,Netherlands,autoscout24
+BMW 118,BMW,2022,60156,Gasoline,Automatic,24028.92,Netherlands,autoscout24
+Land Rover Range Rover Evoque,Land Rover,2017,165341,Gasoline,Automatic,25918.92,Netherlands,autoscout24
+Renault Megane,Renault,2021,195542,Gasoline,Manual,10746.0,Netherlands,autoscout24
+Volkswagen T-Cross,Volkswagen,2023,93172,Gasoline,Automatic,21330.0,Netherlands,autoscout24
+Opel Karl,Opel,2016,44315,Gasoline,Manual,10746.0,Netherlands,autoscout24
+SEAT Ibiza,SEAT,2021,149831,Gasoline,Automatic,16146.0,Netherlands,autoscout24
+Audi A5,Audi,2013,225993,Gasoline,Automatic,13759.2,Netherlands,autoscout24
+Mercedes-Benz C 200,Mercedes-Benz,2006,173000,Diesel,Automatic,5285.52,Netherlands,autoscout24
+Volvo XC40,Volvo,2021,233660,Electric/gasoline,Automatic,19386.0,Netherlands,autoscout24
+Skoda Octavia,Skoda,2022,82231,Diesel,Automatic,37199.52,Netherlands,autoscout24
+Bentley Continental GT,Bentley,2006,28644,Gasoline,Automatic,40878.0,Netherlands,autoscout24
+Volkswagen Tiguan,Volkswagen,2018,115675,Gasoline,Automatic,26838.0,Netherlands,autoscout24
+Citroen C3,Citroen,2012,133079,Gasoline,Manual,4156.92,Netherlands,autoscout24
+Volkswagen up!,Volkswagen,2015,118771,Gasoline,Manual,6959.52,Netherlands,autoscout24
+Audi A6,Audi,2012,261873,Diesel,Automatic,11340.0,Netherlands,autoscout24
+Kia Niro,Kia,2021,123083,Electric/gasoline,Automatic,20412.0,Netherlands,autoscout24
+Volkswagen T-Roc,Volkswagen,2025,23987,Gasoline,Automatic,36990.0,Netherlands,autoscout24
+Peugeot Partner,Peugeot,2011,208678,Gasoline,Manual,4293.0,Netherlands,autoscout24
+Toyota Aygo,Toyota,2014,170662,Gasoline,Manual,4681.8,Netherlands,autoscout24
+BMW 320,BMW,2014,162312,Diesel,Manual,10794.6,Netherlands,autoscout24
+Hyundai i10,Hyundai,2018,119111,Gasoline,Manual,9450.0,Netherlands,autoscout24

@@ -1,138 +1,110 @@
 """
-Craigslist (USA) used car scraper.
-Targets the 'cars+trucks by owner' and 'by dealer' sections across major US cities.
-Craigslist is publicly accessible with no login required.
+Craigslist (USA) used car scraper — updated for 2024 site structure.
+Listing container: li.cl-static-search-result
+Price:  div.price  |  Title: div.title or li[title] attribute
+Year extracted from title text.
 """
 import re
+import time
 import pandas as pd
 from bs4 import BeautifulSoup
 from .base_scraper import BaseCarScraper
 
-# Top US cities with high car listing volume
 US_CITIES = [
-    'losangeles', 'sfbay', 'newyork', 'chicago', 'dallas',
+    'sfbay', 'losangeles', 'newyork', 'chicago', 'dallas',
     'houston', 'phoenix', 'seattle', 'denver', 'atlanta',
     'miami', 'boston', 'detroit', 'minneapolis', 'portland',
 ]
 
-SECTION = 'cto'   # cars+trucks by owner  (use 'ctd' for dealers)
+KNOWN_BRANDS = [
+    'Toyota','Honda','Ford','Chevrolet','Chevy','BMW','Mercedes','Audi','Hyundai',
+    'Kia','Nissan','Mazda','Subaru','Jeep','Dodge','Ram','GMC','Buick','Cadillac',
+    'Lincoln','Chrysler','Volvo','Volkswagen','VW','Lexus','Acura','Infiniti',
+    'Genesis','Tesla','Rivian','Lucid','Mitsubishi','Suzuki','Land','Mini','Fiat',
+    'Porsche','Lamborghini','Ferrari','Bentley','Rolls','Maserati','Alfa',
+]
 
 
 class CraigslistScraper(BaseCarScraper):
 
     def __init__(self, cities: list = None):
         super().__init__(country='USA', currency='USD', mileage_unit='miles')
-        self.cities = cities or US_CITIES[:5]   # default: 5 cities
+        self.cities = cities or US_CITIES[:5]
 
-    def _search_url(self, city: str, page: int) -> str:
-        offset = page * 120
+    def _search_url(self, city: str, start: int) -> str:
         return (
-            f'https://{city}.craigslist.org/search/{SECTION}'
-            f'?sort=date&min_price=500&max_price=150000'
-            f'#search=1~list~{page}~0'
-        )
-
-    def _search_url_v2(self, city: str, start: int) -> str:
-        """Fallback URL with start offset (older Craigslist format)."""
-        return (
-            f'https://{city}.craigslist.org/search/{SECTION}'
-            f'?s={start}&sort=date&min_price=500&max_price=150000'
+            f'https://{city}.craigslist.org/search/cto'
+            f'?s={start}&sort=date&min_price=500&max_price=200000'
         )
 
     def _parse_year(self, text: str):
-        match = re.search(r'\b(19[89]\d|20[012]\d)\b', text)
-        return int(match.group()) if match else None
+        m = re.search(r'\b(19[89]\d|20[012]\d)\b', text)
+        return int(m.group()) if m else None
 
     def _parse_price(self, text: str):
         digits = re.sub(r'[^\d]', '', text)
         return int(digits) if digits else None
 
-    def _parse_mileage(self, text: str):
-        text = text.lower().replace(',', '')
-        match = re.search(r'(\d+)\s*(mi|km|miles|kilometers)?', text)
-        if match:
-            return int(match.group(1))
-        return None
+    def _guess_brand(self, title: str) -> str:
+        words = title.split()
+        for w in words:
+            for brand in KNOWN_BRANDS:
+                if w.lower() == brand.lower():
+                    return brand
+        return words[0] if words else 'Unknown'
 
-    def _scrape_city(self, city: str, pages: int) -> pd.DataFrame:
+    def _scrape_city(self, city: str, pages: int) -> list:
         rows = []
         for page in range(pages):
-            url = self._search_url_v2(city, page * 120)
-            resp = self.get(url)
+            start = page * 120
+            url   = self._search_url(city, start)
+            resp  = self.get(url)
             if resp is None:
                 continue
 
-            soup = BeautifulSoup(resp.text, 'html.parser')
+            soup  = BeautifulSoup(resp.text, 'html.parser')
+            items = soup.select('li.cl-static-search-result')
 
-            # Current Craigslist structure (2024)
-            results = soup.select('li.cl-search-result')
-            if not results:
-                # Fallback to older structure
-                results = soup.select('li.result-row')
-
-            if not results:
-                print(f"  [info] {city} page {page}: no results found — site structure may have changed")
+            if not items:
+                print(f"  [{city}] page {page+1}: no items — skipping")
                 break
 
-            for item in results:
+            for item in items:
                 try:
-                    # Title / name
-                    title_el = item.select_one('.posting-title .label') or \
-                               item.select_one('.result-title') or \
-                               item.select_one('a[data-id]')
-                    title = title_el.get_text(strip=True) if title_el else ''
+                    title     = item.get('title', '') or item.select_one('div.title').get_text(strip=True)
+                    price_el  = item.select_one('div.price')
+                    price_txt = price_el.get_text(strip=True) if price_el else ''
 
-                    # Price
-                    price_el = item.select_one('.priceinfo') or \
-                               item.select_one('.result-price')
-                    price_text = price_el.get_text(strip=True) if price_el else ''
-                    price = self._parse_price(price_text)
+                    price = self._parse_price(price_txt)
+                    year  = self._parse_year(title)
+                    if not price or not year or not (1990 <= year <= 2026):
+                        continue
 
-                    # Year from title
-                    year = self._parse_year(title)
-
-                    # Attributes (odometer, condition, etc.)
-                    attrs = {
-                        span.get('data-attr', ''): span.get_text(strip=True)
-                        for span in item.select('[data-attr]')
-                    }
-                    odometer_text = attrs.get('auto_miles', '') or attrs.get('auto_kilometers', '')
-                    mileage_raw = self._parse_mileage(odometer_text) if odometer_text else None
-                    mileage_km = self.to_km(mileage_raw) if mileage_raw else None
-
-                    # Try to extract company (first word of title that's a known brand)
-                    words = title.split()
-                    company = words[0] if words else 'Unknown'
-
-                    fuel_type = attrs.get('auto_fuel_type', 'Petrol').capitalize()
-                    transmission = attrs.get('auto_transmission', 'Unknown')
-
-                    if price and year and 1990 <= year <= 2026:
-                        rows.append({
-                            'name': title,
-                            'company': company,
-                            'year': year,
-                            'kms_driven': mileage_km,
-                            'fuel_type': fuel_type,
-                            'transmission': transmission,
-                            'Price_USD': self.to_usd(price),
-                            'country': self.country,
-                            'source': f'craigslist_{city}',
-                        })
-                except Exception as e:
-                    print(f"  [parse error] {city}: {e}")
+                    company = self._guess_brand(title)
+                    rows.append({
+                        'name':         title,
+                        'company':      company,
+                        'year':         year,
+                        'kms_driven':   None,   # not on search page; would need detail page
+                        'fuel_type':    'Petrol',
+                        'transmission': 'Unknown',
+                        'Price_USD':    self.to_usd(price),
+                        'country':      'USA',
+                        'source':       f'craigslist_{city}',
+                    })
+                except Exception:
                     continue
 
-            print(f"  {city} page {page+1}/{pages}: {len(rows)} rows so far")
+            print(f"  [{city}] page {page+1}/{pages}: {len(rows)} rows")
 
-        return pd.DataFrame(rows, columns=self.standard_columns())
+        return rows
 
     def scrape(self, pages: int = 3) -> pd.DataFrame:
-        all_dfs = []
+        all_rows = []
         for city in self.cities:
-            print(f"Scraping Craigslist: {city}")
-            df = self._scrape_city(city, pages)
-            all_dfs.append(df)
-        combined = pd.concat(all_dfs, ignore_index=True) if all_dfs else self.empty_df()
-        print(f"Craigslist total: {len(combined)} records")
-        return combined
+            print(f"Craigslist: {city}")
+            all_rows.extend(self._scrape_city(city, pages))
+
+        df = pd.DataFrame(all_rows, columns=self.standard_columns()) if all_rows else self.empty_df()
+        print(f"Craigslist total: {len(df)} records")
+        return df

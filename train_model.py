@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LinearRegression, Ridge
@@ -78,9 +79,13 @@ def prepare_features(df: pd.DataFrame):
 
 
 def build_pipeline(cat_cols, num_cols, model):
+    num_transformer = Pipeline([
+        ('imputer', SimpleImputer(strategy='median')),
+        ('scaler',  StandardScaler()),
+    ])
     preprocessor = ColumnTransformer([
         ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), cat_cols),
-        ('num', StandardScaler(), num_cols),
+        ('num', num_transformer, num_cols),
     ])
     return Pipeline([('preprocessor', preprocessor), ('model', model)])
 
