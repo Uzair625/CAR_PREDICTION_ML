@@ -123,48 +123,108 @@ streamlit run app.py
 
 ## 📈 How to Improve Accuracy (More & Newer Data)
 
-The current dataset has 815 records from Quikr (India, up to ~2019). Adding more recent data (2020–2026) will significantly improve predictions. See the **Data Sources** section below.
+The current dataset has 815 records from Quikr (India, up to ~2019). Adding global data from 2020–2026 will dramatically improve both coverage and accuracy.
 
 ### Why More Data Helps
 - More records → model generalizes better
-- Newer years → the model can price 2020–2026 vehicles
-- More brands/models → better coverage for rare makes
+- Newer years → the model can price 2020–2026 vehicles including EVs and Hybrids
+- Global markets → covers Toyota (USA), BMW (Europe), Kia (Korea), etc.
+- More features → engine CC, BHP, transmission, number of owners push R² well above 0.80
 
 ---
 
-## 🔍 Where to Find More Data (2020–2026)
+## 🌍 Where to Find More Data — Worldwide (2020–2026)
 
-### Free / Open Datasets
+> When you share new data, just make sure it has these columns (or equivalent):
+> `name, company, year, kms_driven, fuel_type, Price` — add `country` for global models.
+
+---
+
+### 🇺🇸 United States
 
 | Source | Link | Notes |
 |--------|------|-------|
-| **Kaggle — Used Car Listings** | [kaggle.com/datasets](https://www.kaggle.com/datasets?search=used+car+price+india) | Search "used car price India 2024" — many updated datasets |
-| **Kaggle — CarDekho Dataset** | kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho | Updated versions available with 2020–2023 data |
-| **Kaggle — Cars4U Dataset** | kaggle.com/datasets/avikasliwal/used-cars-price-prediction | ~7,000 records, broader year range |
+| **Kaggle — Used Car Auctions (USA)** | kaggle.com/datasets/tunguz/used-car-auction-prices | 500K+ auction records, 1982–2015, price in USD |
+| **Kaggle — Vehicle Sales Data** | kaggle.com/datasets/syedanwarafridi/vehicle-sales-data | USA market, 2014–2015, 550K rows |
+| **Kaggle — USA Used Cars (CarGurus)** | kaggle.com/datasets/ananaymital/us-used-cars-dataset | 3M+ listings scraped from CarGurus |
+| **CarGurus** | cargurus.com | Live USA listings — price, mileage, year, trim |
+| **AutoTrader USA** | autotrader.com | Large volume, includes Carfax history |
+| **Cars.com** | cars.com | Covers all 50 states, rich filter options |
+| **Craigslist (via UCSD dataset)** | kaggle.com/datasets/austinreese/craigslist-carstrucks-data | 420K Craigslist listings, updated to 2021 |
 
-### Live Scraping (Real-Time 2024–2026 Data)
+---
 
-| Platform | URL | What you get |
-|----------|-----|-------------|
-| **CarDekho** | cardekho.com/used-cars | India's largest used car portal — real listings |
-| **CarWale** | carwale.com/used | Rich spec data including engine CC, BHP |
-| **OLX Autos** | olx.in/cars | High volume of listings |
-| **Quikr Cars** | quikr.com/cars | Original data source for this dataset |
-| **Spinny** | spinny.com | Certified pre-owned cars with verified mileage |
+### 🇬🇧 United Kingdom
 
-> To scrape: use Python `requests` + `BeautifulSoup` or `Selenium`. Always check the site's `robots.txt` and Terms of Service first.
+| Source | Link | Notes |
+|--------|------|-------|
+| **Kaggle — UK Used Car Dataset** | kaggle.com/datasets/adityadesai13/used-car-dataset-100000-datapoints | 100K UK cars: Audi, BMW, Ford, Toyota, etc. |
+| **AutoTrader UK** | autotrader.co.uk | UK's largest used car marketplace |
+| **Motors.co.uk** | motors.co.uk | Real listings with mileage, fuel, transmission |
+| **Gumtree Cars** | gumtree.com/cars | Classifieds — private seller prices |
 
-### Additional Features You Can Add (with richer data)
+---
 
-| Feature | Impact |
-|---------|--------|
-| Engine Capacity (CC) | High — bigger engine = higher price |
-| Horsepower (BHP) | High — performance vehicles command premium |
-| Number of Owners | Medium — 1st owner car worth more |
-| Transmission (Auto/Manual) | Medium — automatics more expensive |
-| Color | Low-Medium — white/silver hold value better |
-| Insurance Validity | Low |
-| City / Location | Medium — metro prices differ from tier-2 |
+### 🇩🇪 Germany & Europe
+
+| Source | Link | Notes |
+|--------|------|-------|
+| **Kaggle — AutoScout24 (Europe)** | kaggle.com/datasets/ander289386/cars-dataset | 16K European listings — price in EUR |
+| **Kaggle — Used Cars Germany** | kaggle.com/datasets/wspirat/car-sales-data | German market, includes engine size & power |
+| **AutoScout24** | autoscout24.com | Pan-European: Germany, Italy, France, Spain, NL |
+| **Mobile.de** | mobile.de | Germany's largest car classifieds, very detailed specs |
+| **LaCentrale** | lacentrale.fr | France — includes côte Argus official valuations |
+
+---
+
+### 🇦🇪 Middle East
+
+| Source | Link | Notes |
+|--------|------|-------|
+| **Dubizzle / Bayut** | dubizzle.com/motors | UAE, Saudi, Egypt — prices in AED |
+| **YallaMotor** | yallamotor.com | Covers UAE, KSA, Kuwait, Qatar, Bahrain |
+| **OpenSooq** | opensooq.com | Pan-Arab classifieds — Arabic & English |
+| **Hatla2ee** | hatla2ee.com | Egypt and Gulf used car market |
+
+---
+
+### 🇦🇺 Australia & 🇨🇦 Canada
+
+| Source | Link | Notes |
+|--------|------|-------|
+| **CarsGuide (AU)** | carsguide.com.au | Australia's top used car platform |
+| **Drive.com.au** | drive.com.au | Includes ANCAP safety ratings |
+| **AutoTrader Canada** | autotrader.ca | Canada-wide, prices in CAD |
+| **Kaggle — Canadian Used Cars** | kaggle.com/datasets/rupindersinghrana/used-car-prices-in-canada | Canadian market dataset |
+
+---
+
+### 🌐 Global / Multi-Country Kaggle Datasets (Best Starting Points)
+
+| Dataset | Records | Years | Link |
+|---------|---------|-------|------|
+| **Used Cars Price Prediction** | 19,000+ | 2000–2023 | kaggle.com/datasets/vijayaadithyanvg/car-price-predictionused-cars |
+| **Car Prices Dataset (Global)** | 11,000+ | 1990–2023 | kaggle.com/datasets/sidharth178/car-prices-dataset |
+| **Vehicle Dataset (Multi-country)** | 50,000+ | 2010–2024 | kaggle.com/datasets/meruvulikitha/vehicle-dataset |
+| **Worldwide Used Cars** | 100K+ | 2000–2022 | kaggle.com/datasets/lepchenkov/usedcarscatalog |
+
+---
+
+### Additional Features to Add (Global Data Unlocks These)
+
+| Feature | Impact on R² | Notes |
+|---------|-------------|-------|
+| Engine Capacity (CC) | Very High | Bigger engine = higher price |
+| Horsepower (BHP/HP) | Very High | Performance cars command premium |
+| Transmission (Auto/Manual/CVT) | High | Automatics more expensive in most markets |
+| Number of Owners | High | 1st-owner cars are worth 15–25% more |
+| Country / Market | High | US prices ≠ UK prices ≠ Indian prices |
+| Condition (Excellent/Good/Fair) | High | Certified pre-owned vs private seller |
+| EV / Hybrid / Plug-in Hybrid | High | EVs depreciate differently — need separate logic |
+| Color | Medium | White, silver, black hold value better |
+| City / Region | Medium | NYC vs rural, London vs Manchester |
+| Accident History | Medium | Clean title vs salvage title |
+| Trim Level | Medium | Base vs Sport vs Luxury variant |
 
 ---
 
