@@ -15,7 +15,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, HistGradientBoostingRegressor
 from sklearn.metrics import r2_score, mean_absolute_error
 
 MODEL_OUT   = 'model.pkl'
@@ -44,7 +44,12 @@ def prepare_features(df: pd.DataFrame):
         raise ValueError("Dataset must have a 'Price' or 'Price_USD' column.")
 
     # --- Categorical features ---
-    cat_cols = ['name', 'company', 'fuel_type']
+    # 'name' has too many unique values at global scale (OHE → OOM on CI runners).
+    # 'company' + other features carry the same signal without the memory explosion.
+    n_rows = len(df)
+    use_name = n_rows < 5000   # only include 'name' for small local datasets
+
+    cat_cols = (['name', 'company'] if use_name else ['company']) + ['fuel_type']
     if is_global and 'country' in df.columns:
         cat_cols.append('country')
     if 'transmission' in df.columns:
@@ -99,9 +104,12 @@ def run(data_path: str = None):
     df = load_data(data_path)
     X, y, cat_cols, num_cols = prepare_features(df)
 
+    n_rows = len(X)
+    large  = n_rows > 50_000
+
     print(f"Features (cat): {cat_cols}")
     print(f"Features (num): {num_cols}")
-    print(f"Training samples: {len(X)}")
+    print(f"Training samples: {n_rows}  ({'large' if large else 'small'} dataset mode)")
     print(f"Price range: ${y.min():,.0f} - ${y.max():,.0f}")
 
     # 80/20 train-test split
@@ -109,15 +117,20 @@ def run(data_path: str = None):
         X, y, test_size=0.2, random_state=42
     )
 
+    # HistGradientBoosting handles large datasets efficiently (no OHE needed internally,
+    # but we still use it after OHE here for consistency with the pipeline).
+    # RandomForest is skipped for large datasets (>50K rows) to avoid OOM.
+    large = n_rows > 50_000
     models = {
-        'Ridge Regression':      Ridge(alpha=10),
-        'Random Forest':         RandomForestRegressor(n_estimators=200, random_state=42,
-                                                        min_samples_leaf=3, n_jobs=-1),
-        'Gradient Boosting':     GradientBoostingRegressor(n_estimators=200, learning_rate=0.08,
-                                                            max_depth=5, random_state=42,
-                                                            subsample=0.8),
-        'Linear Regression':     LinearRegression(),
+        'Ridge Regression':          Ridge(alpha=10),
+        'Hist Gradient Boosting':    HistGradientBoostingRegressor(
+                                         max_iter=200, learning_rate=0.08,
+                                         max_depth=6, random_state=42),
+        'Linear Regression':         LinearRegression(),
     }
+    if not large:
+        models['Random Forest'] = RandomForestRegressor(n_estimators=200, random_state=42,
+                                                         min_samples_leaf=3, n_jobs=-1)
 
     results      = {}
     best_pipeline = None
