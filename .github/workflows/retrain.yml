@@ -1,144 +1,120 @@
-name: Scrape → Train → Deploy
+name: Scrape-Train-Deploy
 
-# ── Triggers ──────────────────────────────────────────────────────────────────
 on:
-  push:
-    branches: [main]
-    paths:
-      # Re-run whenever data or model code changes
-      - 'cleaned_car.csv'
-      - 'data/**'
-      - 'train_model.py'
-      - 'data_collection/**'
-      - 'run_collection.py'
-
   schedule:
-    # Every Sunday at 02:00 UTC — scrape fresh data + retrain
-    - cron: '0 2 * * 0'
+    - cron: '0 2 * * 0'   # Every Sunday 2am UTC
 
   workflow_dispatch:
-    # Manual "Run workflow" button in the GitHub Actions UI
     inputs:
       pages:
         description: 'Pages to scrape per site'
         required: false
         default: '5'
-      sources:
-        description: 'Sources (craigslist autoscout24 olx kaggle)'
-        required: false
-        default: 'craigslist autoscout24 olx'
 
-# ── Permissions ───────────────────────────────────────────────────────────────
 permissions:
-  contents: write   # needed to push model.pkl back to the repo
+  contents: write
 
-# ── Job ───────────────────────────────────────────────────────────────────────
 jobs:
   scrape-train-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
+    # Expose secrets as env vars so they can be checked in if: conditions
+    env:
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+      KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+      PAGES: ${{ github.event.inputs.pages || '5' }}
+
     steps:
-      # 1. Checkout full history so we can push back
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2. Python setup with pip cache
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: pip
 
-      # 3. Install all dependencies
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # 4. Kaggle credentials (only if secrets are configured)
       - name: Configure Kaggle credentials
-        if: ${{ secrets.KAGGLE_USERNAME != '' && secrets.KAGGLE_KEY != '' }}
+        if: env.KAGGLE_USERNAME != ''
         run: |
           mkdir -p ~/.kaggle
-          echo '{"username":"${{ secrets.KAGGLE_USERNAME }}","key":"${{ secrets.KAGGLE_KEY }}"}' \
-            > ~/.kaggle/kaggle.json
+          echo "{\"username\":\"${KAGGLE_USERNAME}\",\"key\":\"${KAGGLE_KEY}\"}" > ~/.kaggle/kaggle.json
           chmod 600 ~/.kaggle/kaggle.json
 
-      # 5. Scrape live data  (continue even if some sites block)
-      - name: Scrape — Craigslist (USA)
+      - name: Scrape Craigslist (USA)
         run: |
-          python -c "
-          import os, pandas as pd
+          python - <<'PYEOF'
+          import os
           os.makedirs('data/raw', exist_ok=True)
           from data_collection.scraper_craigslist import CraigslistScraper
-          df = CraigslistScraper().scrape(pages=${{ github.event.inputs.pages || '5' }})
+          df = CraigslistScraper().scrape(pages=int(os.environ.get('PAGES', '5')))
           if not df.empty:
               df.to_csv('data/raw/craigslist_usa.csv', index=False)
-              print(f'Saved {len(df)} rows')
-          "
+              print(f'Craigslist: {len(df)} rows saved')
+          PYEOF
         continue-on-error: true
 
-      - name: Scrape — AutoScout24 (Europe)
+      - name: Scrape AutoScout24 (Europe)
         run: |
-          python -c "
-          import os, pandas as pd
+          python - <<'PYEOF'
+          import os
           os.makedirs('data/raw', exist_ok=True)
           from data_collection.scraper_autoscout24 import AutoScout24Scraper
-          df = AutoScout24Scraper().scrape(pages=${{ github.event.inputs.pages || '5' }})
+          df = AutoScout24Scraper().scrape(pages=int(os.environ.get('PAGES', '5')))
           if not df.empty:
               df.to_csv('data/raw/autoscout24_europe.csv', index=False)
-              print(f'Saved {len(df)} rows')
-          "
+              print(f'AutoScout24: {len(df)} rows saved')
+          PYEOF
         continue-on-error: true
 
-      - name: Scrape — OLX (Multi-country)
+      - name: Scrape OLX (Multi-country)
         run: |
-          python -c "
-          import os, pandas as pd
+          python - <<'PYEOF'
+          import os
           os.makedirs('data/raw', exist_ok=True)
           from data_collection.scraper_olx import OLXScraper
-          df = OLXScraper().scrape(pages=${{ github.event.inputs.pages || '3' }})
+          df = OLXScraper().scrape(pages=int(os.environ.get('PAGES', '3')))
           if not df.empty:
               df.to_csv('data/raw/olx_multicountry.csv', index=False)
-              print(f'Saved {len(df)} rows')
-          "
+              print(f'OLX: {len(df)} rows saved')
+          PYEOF
         continue-on-error: true
 
-      # 6. Kaggle bulk datasets (skipped if no API key)
       - name: Download Kaggle datasets
-        if: ${{ secrets.KAGGLE_USERNAME != '' && secrets.KAGGLE_KEY != '' }}
+        if: env.KAGGLE_USERNAME != ''
         run: python -m data_collection.kaggle_downloader
         continue-on-error: true
 
-      # 7. Merge + clean all sources into global_cars.csv
-      - name: Standardize & merge all data
+      - name: Merge and standardize all data
         run: |
-          python -c "
+          python - <<'PYEOF'
           from data_collection.standardize import merge_and_save
           df = merge_and_save()
-          if df is not None:
+          if df is not None and not df.empty:
               print(f'Global dataset: {len(df)} rows')
               print(df['country'].value_counts().to_string())
-          "
+          PYEOF
 
-      # 8. Retrain the model on the merged dataset
       - name: Retrain model
         run: python train_model.py
 
-      # 9. Commit updated model.pkl + data back to main
-      #    [skip ci] prevents this commit from triggering the workflow again
-      - name: Commit & push updated model
+      - name: Commit and push updated model
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add model.pkl model_results.pkl
-          git add data/raw/*.csv data/processed/global_cars.csv 2>/dev/null || true
+          git add model.pkl model_results.pkl || true
+          git add data/ || true
           if git diff --staged --quiet; then
-            echo "Nothing changed — skipping commit"
+            echo "No changes to commit"
           else
             git commit -m "Auto-retrain $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]"
             git push origin main
-            echo "Pushed updated model — Streamlit Cloud will auto-redeploy"
+            echo "Pushed — Streamlit Cloud will auto-redeploy"
           fi
